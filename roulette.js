@@ -78,8 +78,12 @@ const mainFunction = (player1,player2)=>{
 
     const player2GameType = prompt(`${player2} please enter game type [1 - EVEN , 2 - ODD, 3 - (1-36)]: `)
     const player2BetMoney = prompt(`${player2} please enter money you are placing on the bet: `)  
-
-    
+ 
+    if ((player1GameType >3 || player1GameType< 1 )|| (player2GameType >3 || player2GameType< 1 ) || (player1BetMoney < 0)|| (player2BetMoney <0 )){
+        console.log ('please enter vaild inputs')
+        gameChoice = 2
+        return
+    }
 
     console.log(`name : ${player1} game type: ${player1GameType} bet money: ${player1BetMoney}`)
     console.log(`name : ${player2} game type: ${player2GameType} bet money: ${player2BetMoney}`)
@@ -148,7 +152,7 @@ const player1 = readingPlayerName('player 1')
 const player2 = readingPlayerName('player 2')
 
 
-let gameChoice = 1 //set condition to play
+gameChoice = 1 //set condition to play
 fse.outputFileSync('input.txt', `${player1},${0.0},${0.0},${os.EOL}` )
 fse.outputFileSync('input.txt', `${player2},${0.0},${0.0},${os.EOL}`, {flag: 'a'})
 do{
