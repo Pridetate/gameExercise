@@ -79,6 +79,8 @@ const mainFunction = (player1,player2)=>{
     const player2GameType = prompt(`${player2} please enter game type [1 - EVEN , 2 - ODD, 3 - (1-36)]: `)
     const player2BetMoney = prompt(`${player2} please enter money you are placing on the bet: `)  
 
+    
+
     console.log(`name : ${player1} game type: ${player1GameType} bet money: ${player1BetMoney}`)
     console.log(`name : ${player2} game type: ${player2GameType} bet money: ${player2BetMoney}`)
     
