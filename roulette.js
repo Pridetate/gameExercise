@@ -15,7 +15,7 @@ const computeSingleBetMoneyResult = (inputNumber = 0,spinNumber,gameType,betMone
 
     if (gameType == 1){
         let evenResult = evenDecider(spinNumber)== true? 'win':'lose'
-        console.log(`even Result ${evenResult}`)
+ 
         if(evenResult == 'win'){
             return 2 * betMoney
         }
@@ -26,7 +26,7 @@ const computeSingleBetMoneyResult = (inputNumber = 0,spinNumber,gameType,betMone
 
     if (gameType == 2){
         let oddResult = evenDecider(spinNumber)== false? 'win':'lose'
-        console.log(`odd Result ${oddResult}`)
+ 
         if(oddResult == 'win'){
             return 2 * betMoney
         }
@@ -41,7 +41,7 @@ const computeSingleBetMoneyResult = (inputNumber = 0,spinNumber,gameType,betMone
     }
 
     else{
-        console.log('Please enter proper values')
+        return -1
     }
 
 }
@@ -55,9 +55,8 @@ const choiceTester = (gameChoice,playerName)=>{
 
     let choice = gameChoice == 3? prompt(`${playerName} please choose a value between 1 and 36 `):0
     if (choice >37 || choice < 0){
-        gameChoice = 2
-        console.log('invalid choice')
-        return 0
+        
+        return -1
     }
     return choice
 }
@@ -74,16 +73,31 @@ const syncWait = ms => {
 const mainFunction = (player1,player2)=>{
 
     const player1GameType = prompt(`${player1} please enter game type [1 - EVEN , 2 - ODD, 3 - (1-36)]: `)
-    const player1BetMoney = prompt(`${player1} please enter money you are placing on the bet: `)  
-
-    const player2GameType = prompt(`${player2} please enter game type [1 - EVEN , 2 - ODD, 3 - (1-36)]: `)
-    const player2BetMoney = prompt(`${player2} please enter money you are placing on the bet: `)  
- 
-    if ((player1GameType >3 || player1GameType< 1 )|| (player2GameType >3 || player2GameType< 1 ) || (player1BetMoney < 0)|| (player2BetMoney <0 )){
-        console.log ('please enter vaild inputs')
+    if (player1GameType >3 || player1GameType< 1 ){
+        console.log ('please enter valid inputs')
         gameChoice = 2
         return
     }
+    const player1BetMoney = prompt(`${player1} please enter money you are placing on the bet: `)  
+    if (player1BetMoney < 0){
+        console.log ('please enter valid inputs')
+        gameChoice = 2
+        return
+    }
+    const player2GameType = prompt(`${player2} please enter game type [1 - EVEN , 2 - ODD, 3 - (1-36)]: `)
+    if(player2GameType >3 || player2GameType< 1 ) {
+        console.log ('please enter valid inputs')
+        gameChoice = 2
+        return
+    }
+    const player2BetMoney = prompt(`${player2} please enter money you are placing on the bet: `)  
+    if(player2BetMoney <0 ){
+        console.log ('please enter valid inputs')
+        gameChoice = 2
+        return
+    }
+ 
+
 
     console.log(`name : ${player1} game type: ${player1GameType} bet money: ${player1BetMoney}`)
     console.log(`name : ${player2} game type: ${player2GameType} bet money: ${player2BetMoney}`)
@@ -91,15 +105,15 @@ const mainFunction = (player1,player2)=>{
     const player1ChosenValue = choiceTester(player1GameType,player1)
     const player2ChosenValue = choiceTester(player2GameType,player2)
 
-    
+    if (player1ChosenValue ==-1 || player2ChosenValue == -1){
+        console.log ('please enter valid inputs')
+        gameChoice = 2
+        return
+    }
       const spinValue = Math.ceil(Math.random() * 36)
-      console.log(spinValue)
+
       const player1BetMoneyResult = computeSingleBetMoneyResult(player1ChosenValue,spinValue,player1GameType,player1BetMoney)
       const player2BetMoneyResult = computeSingleBetMoneyResult(player2ChosenValue,spinValue,player2GameType,player2BetMoney)
-
-      console.log(player1ChosenValue,spinValue,player1GameType,player1BetMoney)
-      console.log(player2ChosenValue,spinValue,player2GameType,player2BetMoney)
-
 
       const player1Outcome = verdict(player1BetMoneyResult)
       const player2Outcome = verdict(player2BetMoneyResult)
